@@ -240,6 +240,11 @@ public final class FtpClientFactory {
                         client.enterLocalPassiveMode();
                     }
 
+                    final FtpActivePortRange activePortRange = builder.getActivePortRange(fileSystemOptions);
+                    if (activePortRange != null) {
+                        client.setActivePortRange(activePortRange.getMinimum(), activePortRange.getMaximum());
+                    }
+
                     setupOpenConnection(client, fileSystemOptions);
                 } catch (final IOException e) {
                     if (client.isConnected()) {
